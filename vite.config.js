@@ -124,7 +124,7 @@ window.fetch = function(...args) {
 			return response;
 		})
 		.catch(error => {
-			if (!url.match(/\.html?$/i)) {
+			if (!url.match(/\\.html?$/i)) {
 				console.error(error);
 			}
 
@@ -170,8 +170,8 @@ const addTransformIndexHtml = {
 
 console.warn = () => {};
 
-const logger = createLogger()
-const loggerError = logger.error
+const logger = createLogger();
+const loggerError = logger.error;
 
 logger.error = (msg, options) => {
 	if (options?.error?.toString().includes('CssSyntaxError: [postcss]')) {
@@ -179,7 +179,7 @@ logger.error = (msg, options) => {
 	}
 
 	loggerError(msg, options);
-}
+};
 
 export default defineConfig({
 	customLogger: logger,
@@ -191,25 +191,19 @@ export default defineConfig({
 		},
 		allowedHosts: true,
 		watch: {
-			usePolling: true,
-			interval: 1000 // Add polling interval to reduce file system load
+			usePolling: false,
+			ignored: ['**/.env']
 		},
 		hmr: {
-			timeout: 300000, // Increased from 120000 to 300000
+			timeout: 5000,
 			protocol: 'ws',
 			host: 'localhost',
-			port: 24678,
-			clientPort: 24678,
-			overlay: true,
-			server: {
-				watch: {
-					ignored: ['**/.env'] // Ignore .env file changes to prevent constant restarts
-				}
-			}
+			clientPort: null,
+			overlay: true
 		}
 	},
 	resolve: {
-		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
+		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json'],
 		alias: {
 			'@': path.resolve(__dirname, './src'),
 		},
