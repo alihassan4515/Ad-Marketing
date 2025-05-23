@@ -190,6 +190,12 @@ export default defineConfig({
 			'Cross-Origin-Embedder-Policy': 'credentialless',
 		},
 		allowedHosts: true,
+		watch: {
+			usePolling: true
+		},
+		hmr: {
+			timeout: 120000
+		}
 	},
 	resolve: {
 		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
