@@ -191,10 +191,21 @@ export default defineConfig({
 		},
 		allowedHosts: true,
 		watch: {
-			usePolling: true
+			usePolling: true,
+			interval: 1000 // Add polling interval to reduce file system load
 		},
 		hmr: {
-			timeout: 120000
+			timeout: 300000, // Increased from 120000 to 300000
+			protocol: 'ws',
+			host: 'localhost',
+			port: 24678,
+			clientPort: 24678,
+			overlay: true,
+			server: {
+				watch: {
+					ignored: ['**/.env'] // Ignore .env file changes to prevent constant restarts
+				}
+			}
 		}
 	},
 	resolve: {
